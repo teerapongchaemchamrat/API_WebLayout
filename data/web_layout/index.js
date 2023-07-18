@@ -76,10 +76,22 @@ const deleteEvent = async (EmpID) => {
     }
 }
 
+const GetImage = async () => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('web_layout');
+        const getimage = await pool.request().query(sqlQueries.get_img);
+        return getimage.recordset;
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     getEvents,
     getById,
     creatEvent,
     updateEvent,
-    deleteEvent
+    deleteEvent,
+    GetImage
 }

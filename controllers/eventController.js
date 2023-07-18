@@ -53,10 +53,20 @@ const deleteEvent = async (req, res, next) => {
     }
 }
 
+const getImage = async (req, res, next) => {
+    try {
+        const img = await eventData.GetImage();
+        res.send(img);        
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
     getAllEvents,
     getEvent,
     addEvent,
     updatEvent,
-    deleteEvent
+    deleteEvent,
+    getImage
 }
