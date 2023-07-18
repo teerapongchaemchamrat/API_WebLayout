@@ -36,6 +36,7 @@ router.post('/single', upload.single("image"), async (req, res) => {
   try{
     console.log(req.file);
 
+    
   const imagePath = `D:/webapp image/API_WEP_V2/routes/uploads/${req.file.originalname}`;
   const pool = await sql.connect(config.sql);
   const result = await pool.request()
