@@ -1,10 +1,9 @@
 'use strict';
 
-const eventData = require('../data/web_layout');
+const eventData = require('../data/Department');
 
 const getAllEvents = async (req, res, next) => {
     try {
-
         const eventlist = await eventData.getEvents();
         res.send(eventlist);        
     } catch (error) {
@@ -17,16 +16,6 @@ const getEvent = async (req, res, next) => {
         const eventId = req.params.id;
         const event = await eventData.getById(eventId);
         res.send(event);
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
-const addEvent = async (req, res, next) => {
-    try {
-        const data = req.body;
-        const insert = await eventData.creatEvent(data);
-        res.send(insert);
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -53,20 +42,9 @@ const deleteEvent = async (req, res, next) => {
     }
 }
 
-const getImage = async (req, res, next) => {
-    try {
-        const img = await eventData.GetImage();
-        res.send(img);        
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
 module.exports = {
     getAllEvents,
     getEvent,
-    addEvent,
     updatEvent,
-    deleteEvent,
-    getImage
+    deleteEvent
 }
