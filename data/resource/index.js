@@ -19,7 +19,7 @@ const getById = async(resource_id) => {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('resource');
         const getbyid = await pool.request()
-                            .input('resource_id', sql.NVarChar(30), resource_id)
+                            .input('Uf_asset_SerialNumber', sql.NVarChar(30), Uf_asset_SerialNumber)
                             .query(sqlQueries.getById);
         return getbyid.recordset;
     } catch (error) {
@@ -32,9 +32,23 @@ const creatEvent = async (data) => {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('resource');
         const insertEvent = await pool.request()
-                            .input('resource_id', sql.NVarChar(30), data.resource_id)
-                            .input('model', sql.NVarChar(30), data.model)
-                            .input('location', sql.NVarChar(30), data.location)
+                            .input('Uf_asset_Car_Exp', sql.DateTime, data.Uf_asset_Car_Exp)
+                            .input('Uf_asset_Compulsory_Exp', sql.DateTime, data.Uf_asset_Compulsory_Exp)
+                            .input('Uf_asset_Contact', sql.NVarChar(200), data.Uf_asset_Contact)
+                            .input('Uf_asset_ErectricCurrent', sql.NVarChar(3), data.Uf_asset_ErectricCurrent)
+                            .input('Uf_asset_Location', sql.NVarChar(30), data.Uf_asset_Location)
+                            .input('Uf_asset_ModelNumber', sql.NVarChar(20), data.Uf_asset_ModelNumber)
+                            .input('Uf_asset_PmDurationTime', sql.Int, data.Uf_asset_PmDurationTime)
+                            .input('Uf_asset_PmLink', sql.NVarChar(100), data.Uf_asset_PmLink)
+                            .input('Uf_asset_SerialNumber', sql.NVarChar(30), data.Uf_asset_SerialNumber)
+                            .input('Uf_asset_StartUsedDate', sql.DateTime, data.Uf_asset_StartUsedDate)
+                            .input('Uf_asset_UserManual', sql.NVarChar(100), data.Uf_asset_UserManual)
+                            .input('Uf_asset_Voltage', sql.NVarChar(20), data.Uf_asset_Voltage)
+                            .input('Uf_asset_Weight', sql.Decimal(10,2), data.Uf_asset_Weight)
+                            .input('Uf_asset_ErectricKw', sql.NVarChar(10), data.Uf_asset_ErectricKw)
+                            .input('Uf_asset_ExpireDate', sql.DateTime, data.Uf_asset_ExpireDate)
+                            .input('Uf_asset_department', sql.NVarChar(100), data.Uf_asset_department)
+                            .input('Uf_asset_inventory_number', sql.NVarChar(50), data.Uf_asset_inventory_number)
                             .query(sqlQueries.create);
         return insertEvent.recordset;
     } catch (error) {
@@ -42,15 +56,29 @@ const creatEvent = async (data) => {
     }
 }
 
-const updateEvent = async (resource_id, data) => {
+const updateEvent = async (Uf_asset_SerialNumber, data) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('resource');
         const update = await pool.request()
-                        .input('resource_id', sql.NVarChar(30), resource_id)
-                        .input('resource_id_update', sql.NVarChar(30), data.resource_id_update)
-                        .input('model', sql.NVarChar(30), data.model)
-                        .input('location', sql.NVarChar(30), data.location)
+                        .input('Uf_asset_Car_Exp', sql.DateTime, data.Uf_asset_Car_Exp)
+                        .input('Uf_asset_Compulsory_Exp', sql.DateTime, data.Uf_asset_Compulsory_Exp)
+                        .input('Uf_asset_Contact', sql.NVarChar(200), data.Uf_asset_Contact)
+                        .input('Uf_asset_ErectricCurrent', sql.NVarChar(3), data.Uf_asset_ErectricCurrent)
+                        .input('Uf_asset_Location', sql.NVarChar(30), data.Uf_asset_Location)
+                        .input('Uf_asset_ModelNumber', sql.NVarChar(20), data.Uf_asset_ModelNumber)
+                        .input('Uf_asset_PmDurationTime', sql.Int, data.Uf_asset_PmDurationTime)
+                        .input('Uf_asset_PmLink', sql.NVarChar(100), data.Uf_asset_PmLink)
+                        .input('Uf_asset_SerialNumber', sql.NVarChar(30), Uf_asset_SerialNumber)
+                        .input('Uf_asset_SerialNumber_update', sql.NVarChar(30), data.Uf_asset_SerialNumber_update)
+                        .input('Uf_asset_StartUsedDate', sql.DateTime, data.Uf_asset_StartUsedDate)
+                        .input('Uf_asset_UserManual', sql.NVarChar(100), data.Uf_asset_UserManual)
+                        .input('Uf_asset_Voltage', sql.NVarChar(20), data.Uf_asset_Voltage)
+                        .input('Uf_asset_Weight', sql.Decimal(10,2), data.Uf_asset_Weight)
+                        .input('Uf_asset_ErectricKw', sql.NVarChar(10), data.Uf_asset_ErectricKw)
+                        .input('Uf_asset_ExpireDate', sql.DateTime, data.Uf_asset_ExpireDate)
+                        .input('Uf_asset_department', sql.NVarChar(100), data.Uf_asset_department)
+                        .input('Uf_asset_inventory_number', sql.NVarChar(50), data.Uf_asset_inventory_number) 
                         .query(sqlQueries.update);
         return update.recordset;
     } catch (error) {
@@ -58,12 +86,12 @@ const updateEvent = async (resource_id, data) => {
     }
 }
 
-const deleteEvent = async (resource_id) => {
+const deleteEvent = async (Uf_asset_SerialNumber) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('resource');
         const deleteEvent = await pool.request()
-                            .input('resource_id', sql.NVarChar(30), resource_id)
+                            .input('Uf_asset_SerialNumber', sql.NVarChar(30), Uf_asset_SerialNumber)
                             .query(sqlQueries.delete);
         return deleteEvent.recordset;
     } catch (error) {

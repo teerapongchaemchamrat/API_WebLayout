@@ -14,6 +14,7 @@ router.use(cors());
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "D:/Project Web/react/myreact/public/image");
+    cb(null, "D:/Project Web/react/myreact/build/image");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -37,6 +38,7 @@ router.get('/pointer/location6', eventControll.getLoaction6);
 router.get('/pointer/:id', eventControll.getEvent);
 router.post('/pointer/add', eventControll.addEvent);
 router.put('/pointer/:id', eventControll.updatEvent);
+router.put('/pointer/stat/:id', eventControll.updateStat);
 router.delete('/pointer/:id', eventControll.deleteEvent);
 
 router.get('/resource/all', eventControll_resource.getAllEvents);
@@ -65,6 +67,51 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 
   console.log(result);
   res.send("Single File upload success");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error while uploading the file');
+  }
+});
+
+const fileStorageEngineBG = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "D:/Project Web/react/myreact/public/image");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/svg+xml') {
+    cb(null, true); // Accept the file
+  } else {
+    cb(new Error('Only SVG files are allowed!'), false); // Reject the file
+  }
+};
+
+const uploadBG = multer({
+  limits: {
+    fileSize: 20 * 1024 * 1024
+  },
+  storage: fileStorageEngineBG,
+  fileFilter: fileFilter
+});
+
+router.post('/upload/bg', uploadBG.single('image'), async (req, res) => {
+  try{
+    console.log(req.file);
+
+  const imagePath = `D:/Project Web/react/myreact/public/image/${req.file.originalname}`;
+  const dept = req.body.dept;
+  const pool = await sql.connect(config.sql);
+  const result = await pool.request()
+                  .input('dept', sql.NVarChar(30), dept)
+                  .input('image_path', sql.NVarChar(100), imagePath)
+                  .query('UPDATE Department SET image_path=@image_path WHERE dept=@dept');
+
+  console.log(result);
+  res.send("Single File update success");
   } catch (error) {
     console.error(error);
     res.status(500).send('Error while uploading the file');

@@ -3,15 +3,17 @@ INSERT INTO [dbo].[pointer]
         [x],
         [y],
         [diameter],
-        [resource_id],
-        [dept]
+        [Uf_asset_SerialNumber],
+        [dept],
+        [stat]
     )
 VALUES 
     (
         @x,
         @y,
         @diameter,
-        @resource_id,
-        @dept
+        @Uf_asset_SerialNumber,
+        @dept,
+        @stat
     )
 SELECT SCOPE_IDENTITY() AS no

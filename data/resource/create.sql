@@ -1,12 +1,40 @@
-INSERT INTO [dbo].[resource]
+INSERT INTO [dbo].[resource_detail]
 (
-        [resource_id],
-        [model],
-        [location]
+        [Uf_asset_Car_Exp],
+        [Uf_asset_Compulsory_Exp],
+        [Uf_asset_Contact],
+        [Uf_asset_ErectricCurrent],
+        [Uf_asset_Location],
+        [Uf_asset_ModelNumber],
+        [Uf_asset_PmDurationTime],
+        [Uf_asset_PmLink],
+        [Uf_asset_SerialNumber],
+        [Uf_asset_StartUsedDate],
+        [Uf_asset_UserManual],
+        [Uf_asset_Voltage],
+        [Uf_asset_Weight],
+        [Uf_asset_ErectricKw],
+        [Uf_asset_ExpireDate],
+        [Uf_asset_department],
+        [Uf_asset_inventory_number]
     )
 VALUES 
     (
-        @resource_id,
-        @model,
-        @location
+        @Uf_asset_Car_Exp,
+        @Uf_asset_Compulsory_Exp,
+        @Uf_asset_Contact,
+        @Uf_asset_ErectricCurrent,
+        @Uf_asset_Location,
+        @Uf_asset_ModelNumber,
+        @Uf_asset_PmDurationTime,
+        @Uf_asset_PmLink,
+        @Uf_asset_SerialNumber,
+        @Uf_asset_StartUsedDate,
+        @Uf_asset_UserManual,
+        @Uf_asset_Voltage,
+        @Uf_asset_Weight,
+        @Uf_asset_ErectricKw,
+        @Uf_asset_ExpireDate,
+        @Uf_asset_department,
+        @Uf_asset_inventory_number 
     )

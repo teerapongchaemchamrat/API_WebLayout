@@ -1,5 +1,5 @@
 UPDATE [dbo].[pointer]
-SET [resource_id]=@resource_id,
+SET [Uf_asset_SerialNumber]=@Uf_asset_SerialNumber,
     [dept] = @dept
 WHERE [no]=@no
 

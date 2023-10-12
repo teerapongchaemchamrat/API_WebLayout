@@ -96,6 +96,17 @@ const updatEvent = async (req, res, next) => {
     }
 }
 
+const updateStat = async (req, res, next) => {
+    try {
+        const eventStat = req.params.id;
+        const data = req.body;
+        const updated = await eventData.updateStat(eventStat, data);
+        res.send(updated);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const deleteEvent = async (req, res, next) => {
     try {
         const eventId = req.params.id;
@@ -113,6 +124,7 @@ module.exports = {
     getEvent,
     addEvent,
     updatEvent,
+    updateStat,
     deleteEvent,
     getLoaction1,
     getLoaction2,

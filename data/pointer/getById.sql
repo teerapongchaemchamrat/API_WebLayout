@@ -2,8 +2,8 @@ SELECT [no]
     ,[x]
     ,[y]
     ,[diameter]
-    ,[resource_id]
+    ,[Uf_asset_SerialNumber]
     ,[dept]
     
 FROM [dbo].[pointer]
-WHERE [resource_id]=@resource_id
+WHERE [Uf_asset_SerialNumber]=@Uf_asset_SerialNumber
