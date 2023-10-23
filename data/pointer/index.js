@@ -80,12 +80,12 @@ const getlocation6 = async () => {
     }
 }
 
-const getById = async(Uf_asset_SerialNumber) => {
+const getById = async(Uf_asset_RESID) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('pointer');
         const getbyid = await pool.request()
-                            .input('Uf_asset_SerialNumber', sql.NVarChar(30), Uf_asset_SerialNumber)
+                            .input('Uf_asset_RESID', sql.NVarChar(30), Uf_asset_RESID)
                             .query(sqlQueries.getById);
         return getbyid.recordset;
     } catch (error) {
@@ -101,8 +101,8 @@ const creatEvent = async (data) => {
                             .input('x', sql.Int, data.x)
                             .input('y', sql.Int, data.y)
                             .input('diameter', sql.Int, data.diameter)
-                            .input('Uf_asset_SerialNumber', sql.NVarChar(30), data.Uf_asset_SerialNumber)
-                            .input('dept', sql.NVarChar(30), data.dept)
+                            .input('Uf_asset_RESID', sql.NVarChar(30), data.Uf_asset_RESID)
+                            .input('Uf_asset_department', sql.NVarChar(30), data.Uf_asset_department)
                             .input('stat', sql.Int, data.stat)
                             .query(sqlQueries.create);
         return insertEvent.recordset;
@@ -117,8 +117,8 @@ const updateEvent = async (no, data) => {
         const sqlQueries = await utils.loadSqlQueries('pointer');
         const updateEvent = await pool.request()
                         .input('no', sql.Int, no)
-                        .input('Uf_asset_SerialNumber', sql.NVarChar(30), data.Uf_asset_SerialNumber)
-                        .input('dept', sql.NVarChar(30), data.dept)
+                        .input('Uf_asset_RESID', sql.NVarChar(30), data.Uf_asset_RESID)
+                        .input('Uf_asset_department', sql.NVarChar(30), data.Uf_asset_department)
                         .query(sqlQueries.update);
         return updateEvent.recordset;
         //console.log(data);
@@ -127,12 +127,12 @@ const updateEvent = async (no, data) => {
     }
 }
 
-const updateStat = async (Uf_asset_SerialNumber, data) => {
+const updateStat = async (Uf_asset_RESID, data) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('pointer');
         const updateStat = await pool.request()
-                        .input('Uf_asset_SerialNumber', sql.NVarChar(30), Uf_asset_SerialNumber)
+                        .input('Uf_asset_RESID', sql.NVarChar(30), Uf_asset_RESID)
                         .input('stat', sql.Int, data.stat)
                         .query(sqlQueries.update_stat);
         return updateStat.recordset;

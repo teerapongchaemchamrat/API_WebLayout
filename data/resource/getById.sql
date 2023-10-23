@@ -1,4 +1,5 @@
-SELECT [Uf_asset_Car_Exp],
+SELECT  [Uf_asset_RESID],
+        [Uf_asset_Car_Exp],
         [Uf_asset_Compulsory_Exp],
         [Uf_asset_Contact],
         [Uf_asset_ErectricCurrent],
@@ -17,4 +18,4 @@ SELECT [Uf_asset_Car_Exp],
         [Uf_asset_inventory_number]
       
 FROM [dbo].[resource_detail]
-WHERE [Uf_asset_SerialNumber] = @Uf_asset_SerialNumber
+WHERE [Uf_asset_RESID] = @Uf_asset_RESID

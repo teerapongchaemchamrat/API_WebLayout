@@ -3,11 +3,13 @@ const express = require('express');
 const eventControll = require('../controllers/eventController_pointer');
 const eventControll_resource = require('../controllers/eventController_resource');
 const eventControll_Department = require('../controllers/eventController_Department');
+const eventControll_SparePart = require('../controllers/eventController_SparePart');
 const router = express.Router();
 const multer = require('multer');
 const cors = require('cors');
 const config = require('../config');
 const sql = require('mssql');
+
 
 router.use(cors());
 
@@ -16,6 +18,10 @@ const fileStorageEngine = multer.diskStorage({
     cb(null, "D:/Project Web/react/myreact/public/image");
     cb(null, "D:/Project Web/react/myreact/build/image");
   },
+  // filename: (req, file, cb) => {
+  //   const originalname = encodeURIComponent(file.originalname);
+  //   cb(null, decodeURIComponent(originalname));
+  // }
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   }
@@ -52,6 +58,12 @@ router.get('/department/:id', eventControll_Department.getEvent);
 router.put('/department/:id', eventControll_Department.updatEvent);
 router.delete('/department/:id', eventControll_Department.deleteEvent);
 
+router.get('/sparepart/all', eventControll_SparePart.getAllEvents);
+router.get('/sparepart/:id', eventControll_SparePart.getID);
+router.post('/sparepart/add', eventControll_SparePart.addEvent);
+router.put('/sparepart/add/stock/:id', eventControll_SparePart.update_add_stock);
+router.put('/sparepart/minus/stock/:id', eventControll_SparePart.update_minus_stock);
+router.delete('/sparepart/:id', eventControll_SparePart.deleteEvent);
 
 router.post('/upload', upload.single('image'), async (req, res) => {
   try{
@@ -62,7 +74,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
   const pool = await sql.connect(config.sql);
   const result = await pool.request()
                   .input('dept', sql.NVarChar(30), dept)
-                  .input('image_path', sql.NVarChar(100), imagePath)
+                  .input('image_path', sql.NVarChar(500), imagePath)
                   .query('INSERT INTO Department (dept, image_path) VALUES (@dept, @image_path)');
 
   console.log(result);
@@ -73,32 +85,32 @@ router.post('/upload', upload.single('image'), async (req, res) => {
   }
 });
 
-const fileStorageEngineBG = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "D:/Project Web/react/myreact/public/image");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  }
-});
+// const fileStorageEngineBG = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "D:/Project Web/react/myreact/public/image");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   }
+// });
 
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/svg+xml') {
-    cb(null, true); // Accept the file
-  } else {
-    cb(new Error('Only SVG files are allowed!'), false); // Reject the file
-  }
-};
+// const fileFilter = (req, file, cb) => {
+//   if (file.mimetype === 'image/svg+xml') {
+//     cb(null, true); // Accept the file
+//   } else {
+//     cb(new Error('Only SVG files are allowed!'), false); // Reject the file
+//   }
+// };
 
-const uploadBG = multer({
-  limits: {
-    fileSize: 20 * 1024 * 1024
-  },
-  storage: fileStorageEngineBG,
-  fileFilter: fileFilter
-});
+// const uploadBG = multer({
+//   limits: {
+//     fileSize: 20 * 1024 * 1024
+//   },
+//   storage: fileStorageEngineBG,
+//   fileFilter: fileFilter
+// });
 
-router.post('/upload/bg', uploadBG.single('image'), async (req, res) => {
+router.post('/upload/bg', upload.single('image'), async (req, res) => {
   try{
     console.log(req.file);
 

@@ -1,5 +1,6 @@
 INSERT INTO [dbo].[resource_detail]
 (
+        [Uf_asset_RESID],
         [Uf_asset_Car_Exp],
         [Uf_asset_Compulsory_Exp],
         [Uf_asset_Contact],
@@ -20,6 +21,7 @@ INSERT INTO [dbo].[resource_detail]
     )
 VALUES 
     (
+        @Uf_asset_RESID,
         @Uf_asset_Car_Exp,
         @Uf_asset_Compulsory_Exp,
         @Uf_asset_Contact,

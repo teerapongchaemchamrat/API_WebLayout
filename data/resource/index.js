@@ -14,12 +14,12 @@ const getEvents = async () => {
     }
 }
 
-const getById = async(resource_id) => {
+const getById = async(Uf_asset_RESID) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('resource');
         const getbyid = await pool.request()
-                            .input('Uf_asset_SerialNumber', sql.NVarChar(30), Uf_asset_SerialNumber)
+                            .input('Uf_asset_RESID', sql.NVarChar(30), Uf_asset_RESID)
                             .query(sqlQueries.getById);
         return getbyid.recordset;
     } catch (error) {
@@ -32,6 +32,7 @@ const creatEvent = async (data) => {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('resource');
         const insertEvent = await pool.request()
+                            .input('Uf_asset_RESID', sql.NVarChar(30), data.Uf_asset_RESID)
                             .input('Uf_asset_Car_Exp', sql.DateTime, data.Uf_asset_Car_Exp)
                             .input('Uf_asset_Compulsory_Exp', sql.DateTime, data.Uf_asset_Compulsory_Exp)
                             .input('Uf_asset_Contact', sql.NVarChar(200), data.Uf_asset_Contact)
@@ -56,11 +57,13 @@ const creatEvent = async (data) => {
     }
 }
 
-const updateEvent = async (Uf_asset_SerialNumber, data) => {
+const updateEvent = async (Uf_asset_RESID, data) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('resource');
         const update = await pool.request()
+                        .input('Uf_asset_RESID', sql.NVarChar(30), Uf_asset_RESID)
+                        .input('Uf_asset_RESID_update', sql.NVarChar(30), data.Uf_asset_RESID_update)
                         .input('Uf_asset_Car_Exp', sql.DateTime, data.Uf_asset_Car_Exp)
                         .input('Uf_asset_Compulsory_Exp', sql.DateTime, data.Uf_asset_Compulsory_Exp)
                         .input('Uf_asset_Contact', sql.NVarChar(200), data.Uf_asset_Contact)
@@ -69,8 +72,7 @@ const updateEvent = async (Uf_asset_SerialNumber, data) => {
                         .input('Uf_asset_ModelNumber', sql.NVarChar(20), data.Uf_asset_ModelNumber)
                         .input('Uf_asset_PmDurationTime', sql.Int, data.Uf_asset_PmDurationTime)
                         .input('Uf_asset_PmLink', sql.NVarChar(100), data.Uf_asset_PmLink)
-                        .input('Uf_asset_SerialNumber', sql.NVarChar(30), Uf_asset_SerialNumber)
-                        .input('Uf_asset_SerialNumber_update', sql.NVarChar(30), data.Uf_asset_SerialNumber_update)
+                        .input('Uf_asset_SerialNumber', sql.NVarChar(30), data.Uf_asset_SerialNumber)
                         .input('Uf_asset_StartUsedDate', sql.DateTime, data.Uf_asset_StartUsedDate)
                         .input('Uf_asset_UserManual', sql.NVarChar(100), data.Uf_asset_UserManual)
                         .input('Uf_asset_Voltage', sql.NVarChar(20), data.Uf_asset_Voltage)
@@ -86,12 +88,12 @@ const updateEvent = async (Uf_asset_SerialNumber, data) => {
     }
 }
 
-const deleteEvent = async (Uf_asset_SerialNumber) => {
+const deleteEvent = async (Uf_asset_RESID) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('resource');
         const deleteEvent = await pool.request()
-                            .input('Uf_asset_SerialNumber', sql.NVarChar(30), Uf_asset_SerialNumber)
+                            .input('Uf_asset_RESID', sql.NVarChar(30), Uf_asset_RESID)
                             .query(sqlQueries.delete);
         return deleteEvent.recordset;
     } catch (error) {

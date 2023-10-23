@@ -1,4 +1,6 @@
-SELECT [Uf_asset_Car_Exp],
+SELECT 
+        [Uf_asset_RESID],
+        [Uf_asset_Car_Exp],
         [Uf_asset_Compulsory_Exp],
         [Uf_asset_Contact],
         [Uf_asset_ErectricCurrent],

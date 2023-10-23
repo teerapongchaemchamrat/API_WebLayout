@@ -2,11 +2,10 @@ SELECT [no]
       ,[x]
       ,[y]
       ,[diameter]
-      ,[pointer].[Uf_asset_SerialNumber]
-      ,[pointer].[dept]
+      ,[pointer].[Uf_asset_RESID]
+      ,[pointer].[Uf_asset_department]
 	    ,[resource_detail].[Uf_asset_Location]
 	    ,[resource_detail].[Uf_asset_ModelNumber]
-	    ,[Department].[image_path]
       ,[resource_detail].[Uf_asset_Car_Exp]
       ,[resource_detail].[Uf_asset_Compulsory_Exp]
       ,[resource_detail].[Uf_asset_Contact]
@@ -20,14 +19,16 @@ SELECT [no]
       ,[resource_detail].[Uf_asset_ErectricKw]
       ,[resource_detail].[Uf_asset_ExpireDate]
       ,[resource_detail].[Uf_asset_inventory_number]
+      ,[resource_detail].[Uf_asset_SerialNumber]
+      ,[Department].[image_path]
       ,[pointer].[stat]
-      
+
   FROM [dbo].[pointer]
 
 INNER JOIN Department
-  ON pointer.dept = Department.dept
+  ON pointer.Uf_asset_department = Department.dept
 
 INNER JOIN [resource_detail]
-ON pointer.Uf_asset_SerialNumber = [resource_detail].Uf_asset_SerialNumber
+ON pointer.Uf_asset_RESID = [resource_detail].Uf_asset_RESID
 
 WHERE [resource_detail].[Uf_asset_Location] = 'OFFICE PD 1'
